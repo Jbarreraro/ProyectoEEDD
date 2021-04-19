@@ -11,6 +11,7 @@ public class Animal {
     private final String raza;
     private final String genero;
     private final Date fechaIngreso;
+    private boolean adoptable;
     private Date fechaSalida;
     private String estadoIngreso;
     private String[] medicamentos;
@@ -18,12 +19,13 @@ public class Animal {
     //Constructor
     public Animal(String nombre, String animal, String raza, String genero,
             Date fechaIngreso, Date fechaSalida,
-            String estadoIngreso, String[] medicamentos) {
+            boolean adoptable, String estadoIngreso, String[] medicamentos) {
         this.nombre = nombre;
         this.animal = animal;
         this.raza = raza;
         this.genero = genero;
         this.fechaIngreso = fechaIngreso;
+        this.adoptable = adoptable;
         this.fechaSalida = fechaSalida;
         this.estadoIngreso = estadoIngreso;
         this.medicamentos = medicamentos;
@@ -82,6 +84,7 @@ public class Animal {
                 + "\nraza=" + raza
                 + "\ngenero=" + genero
                 + "\nfechaIngreso=" + (new SimpleDateFormat("MM/dd/yyyy")).format(fechaIngreso)
+                + "\nEsAdoptable=" + adoptable
                 + "\nestadoIngreso=" + estadoIngreso
                 + "\nmedicamentos=" + Arrays.asList(medicamentos);
     }

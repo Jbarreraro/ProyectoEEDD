@@ -1,6 +1,6 @@
 package logic;
 
-public class PilaConReferencia<T> {
+public class PilaConReferencia<T> implements Pila<T>{
 
     private class Nodo<T> {
 
@@ -26,12 +26,14 @@ public class PilaConReferencia<T> {
     }
     
     //Metodo para comprobar si la pila esta vacia
+    @Override
     public boolean estaVacio() {
         return cabeza == null;
     }
 
    
     //Metodo para apilar un elemento a la pila
+    @Override
     public void apilar(T elemento){
         Nodo<T> nuevoNodo = new Nodo<T>(elemento);
         nuevoNodo.siguiente = this.cabeza;
@@ -39,11 +41,14 @@ public class PilaConReferencia<T> {
     }
     
     //Metodo para desapilar un elemento de la pila
+    @Override
     public T desapilar(){
         T elemento = null;
         if ( !estaVacio() ){
             elemento = cabeza.dato;
             cabeza = cabeza.siguiente;
+        }else{
+            System.out.println("La pila esta vacia");
         }
         return elemento;
     }
