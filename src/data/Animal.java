@@ -52,6 +52,10 @@ public class Animal {
         return this.fechaIngreso;
     }
 
+    public boolean isAdoptable() {
+        return this.adoptable;
+    }
+    
     public Date getFechaSalida() {
         return this.fechaSalida;
     }
@@ -75,6 +79,10 @@ public class Animal {
 
     public void setMedicamentos(String[] medicamentos) {
         this.medicamentos = medicamentos;
+    }
+
+    public void setAdoptable(boolean adoptable) {
+        this.adoptable = adoptable;
     }
 
     @Override
