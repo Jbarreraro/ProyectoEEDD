@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 public class Animal {
 
     //Atributos de cada animal
+    private final long id;
     private final String nombre;
     private final String animal;
     private final String raza;
@@ -17,9 +18,10 @@ public class Animal {
     private String[] medicamentos;
 
     //Constructor
-    public Animal(String nombre, String animal, String raza, String genero,
+    public Animal(int id, String nombre, String animal, String raza, String genero,
             Date fechaIngreso, Date fechaSalida,
             boolean adoptable, String estadoIngreso, String[] medicamentos) {
+        this.id = id;
         this.nombre = nombre;
         this.animal = animal;
         this.raza = raza;
@@ -32,6 +34,10 @@ public class Animal {
     }
 
     //Accesores
+    public long getId() {
+        return this.id;
+    }
+
     public String getNombre() {
         return this.nombre;
     }
@@ -55,7 +61,7 @@ public class Animal {
     public boolean isAdoptable() {
         return this.adoptable;
     }
-    
+
     public Date getFechaSalida() {
         return this.fechaSalida;
     }
@@ -87,7 +93,8 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "nombre=" + nombre
+        return "id=" + id
+                +"\nnombre=" + nombre
                 + "\nanimal=" + animal
                 + "\nraza=" + raza
                 + "\ngenero=" + genero
