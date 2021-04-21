@@ -1,41 +1,38 @@
 package data;
 
-import java.util.*;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class Animal {
 
     //Atributos de cada animal
-    private final long id;
+    private final long idAnimal;
     private final String nombre;
     private final String animal;
-    private final String raza;
     private final String genero;
-    private final Date fechaIngreso;
+    private final LocalDate fechaIngreso;
     private boolean adoptable;
-    private Date fechaSalida;
+    private LocalDate fechaSalida;
     private String estadoIngreso;
-    private String[] medicamentos;
+    
 
     //Constructor
-    public Animal(int id, String nombre, String animal, String raza, String genero,
-            Date fechaIngreso, Date fechaSalida,
-            boolean adoptable, String estadoIngreso, String[] medicamentos) {
-        this.id = id;
+    public Animal(long idAnimal, String nombre, String animal,  String genero,
+            LocalDate fechaIngreso, LocalDate fechaSalida,
+            boolean adoptable, String estadoIngreso) {
+        this.idAnimal = idAnimal;
         this.nombre = nombre;
         this.animal = animal;
-        this.raza = raza;
         this.genero = genero;
         this.fechaIngreso = fechaIngreso;
         this.adoptable = adoptable;
         this.fechaSalida = fechaSalida;
         this.estadoIngreso = estadoIngreso;
-        this.medicamentos = medicamentos;
+        
     }
 
     //Accesores
     public long getId() {
-        return this.id;
+        return this.idAnimal;
     }
 
     public String getNombre() {
@@ -46,15 +43,11 @@ public class Animal {
         return this.animal;
     }
 
-    public String getRaza() {
-        return this.raza;
-    }
-
     public String getGenero() {
         return this.genero;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return this.fechaIngreso;
     }
 
@@ -62,7 +55,7 @@ public class Animal {
         return this.adoptable;
     }
 
-    public Date getFechaSalida() {
+    public LocalDate getFechaSalida() {
         return this.fechaSalida;
     }
 
@@ -70,21 +63,13 @@ public class Animal {
         return this.estadoIngreso;
     }
 
-    public String[] getMedicamentos() {
-        return this.medicamentos;
-    }
-
     //Mutadores 
-    public void setFechaSalida(Date fechaSalida) {
+    public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 
     public void setEstadoIngreso(String estadoIngreso) {
         this.estadoIngreso = estadoIngreso;
-    }
-
-    public void setMedicamentos(String[] medicamentos) {
-        this.medicamentos = medicamentos;
     }
 
     public void setAdoptable(boolean adoptable) {
@@ -93,15 +78,13 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "id=" + id
-                +"\nnombre=" + nombre
-                + "\nanimal=" + animal
-                + "\nraza=" + raza
-                + "\ngenero=" + genero
-                + "\nfechaIngreso=" + (new SimpleDateFormat("MM/dd/yyyy")).format(fechaIngreso)
-                + "\nEsAdoptable=" + adoptable
-                + "\nestadoIngreso=" + estadoIngreso
-                + "\nmedicamentos=" + Arrays.asList(medicamentos);
+        return "id=" + idAnimal
+                +", nombre=" + nombre
+                + ", animal=" + animal
+                + ", genero=" + genero
+                + ", fechaIngreso=" + fechaIngreso
+                + ", EsAdoptable=" + adoptable
+                + ", estadoIngreso=" + estadoIngreso;
     }
 
 }
