@@ -4,7 +4,6 @@ import data.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.Random;
 
 public class Main {
@@ -95,9 +94,8 @@ public class Main {
         int dia = random.nextInt(28 - 1) + 1;
         LocalDate fechaIngreso = LocalDate.of(año, mes, dia);
         //Escoger si es adoptable o no
-        boolean adoptable = (random.nextInt(2) == 1) ? true : false;
+        boolean adoptable = (random.nextInt(2) == 1);
         // Fecha de salida del animal
-        int incremento = random.nextInt(3 - 1) + 1;
         LocalDate fechaSalida = (random.nextInt(2) == 1) && adoptable
                 ? LocalDate.of(año + random.nextInt(2 - 1) + 1,
                         mes < 8  ? random.nextInt(2 - 1) + 1 : mes, 
