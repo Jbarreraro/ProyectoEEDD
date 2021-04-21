@@ -4,6 +4,7 @@ import data.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Random;
 
 public class Main {
@@ -17,17 +18,17 @@ public class Main {
         //numero de filas a obtener-- numero de animales
         ResultSet datos = ConexionBd.consultarBd(1);
 
-        //Test
-        try {
-            almacenarInformacion(datos);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        //Almacenar info localmente obtenida de la BD
+//        try {
+//            almacenarInformacion(datos);
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+
+        //Generar datos
+        for (long i = 1; i < (long)Math.pow(10, 8); i++) {
+            generarDatos(i);
         }
-        
-        
-        generarDatos();
-        
-        
         
 
         //Desconectar BD
@@ -74,18 +75,39 @@ public class Main {
 
     }
 
-    private static void generarDatos() {
+    private static void generarDatos(long id) {
         Random random = new Random();
-        
+
         //Proceso para generar 100000000 datos
+        long idAnimal = id;
         //String random de 7 caracteres
         String nombre = random.ints(97, 122 + 1)
                 .limit(5)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
         //Escoger entre animal perro gato
-        String animal = new String[]{"perro","gato"}[random.nextInt(2)];
-        System.out.println(animal);
+        String animal = new String[]{"perro", "gato"}[random.nextInt(2)];
+        //Escoger genero del animal 
+        String genero = new String[]{"M", "F"}[random.nextInt(2)];
+        //Fecha ingreso del animal
+        int año = random.nextInt(2021 - 2010) + 2010;
+        int mes = random.nextInt(13 - 1) + 1;
+        int dia = random.nextInt(28 - 1) + 1;
+        LocalDate fechaIngreso = LocalDate.of(año, mes, dia);
+        //Escoger si es adoptable o no
+        boolean adoptable = (random.nextInt(2) == 1) ? true : false;
+        // Fecha de salida del animal
+        int incremento = random.nextInt(3 - 1) + 1;
+        LocalDate fechaSalida = (random.nextInt(2) == 1) && adoptable
+                ? LocalDate.of(año + random.nextInt(2 - 1) + 1,
+                        mes < 8  ? random.nextInt(2 - 1) + 1 : mes, 
+                        dia < 20 ? random.nextInt(2 - 1) + 1 : dia) : null;
+        String estadoIngreso = new String[]{"Muy mal", "Mal", "Bueno", "Muy Bueno"}[random.nextInt(4)];
+
+        //Crear objeto Animal con la informacion obtenida por animal
+        Animal item = new Animal(idAnimal, nombre, animal, genero,
+                fechaIngreso, fechaSalida, adoptable, estadoIngreso);
+        //System.out.println("item = " + item);
     }
 
 }

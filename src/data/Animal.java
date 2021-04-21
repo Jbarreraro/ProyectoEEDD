@@ -13,10 +13,9 @@ public class Animal {
     private boolean adoptable;
     private LocalDate fechaSalida;
     private String estadoIngreso;
-    
 
     //Constructor
-    public Animal(long idAnimal, String nombre, String animal,  String genero,
+    public Animal(long idAnimal, String nombre, String animal, String genero,
             LocalDate fechaIngreso, LocalDate fechaSalida,
             boolean adoptable, String estadoIngreso) {
         this.idAnimal = idAnimal;
@@ -27,7 +26,7 @@ public class Animal {
         this.adoptable = adoptable;
         this.fechaSalida = fechaSalida;
         this.estadoIngreso = estadoIngreso;
-        
+
     }
 
     //Accesores
@@ -79,11 +78,12 @@ public class Animal {
     @Override
     public String toString() {
         return "id=" + idAnimal
-                +", nombre=" + nombre
+                + ", nombre=" + nombre
                 + ", animal=" + animal
                 + ", genero=" + genero
                 + ", fechaIngreso=" + fechaIngreso
                 + ", EsAdoptable=" + adoptable
+                + ", fechaSalida=" + fechaSalida
                 + ", estadoIngreso=" + estadoIngreso;
     }
 
