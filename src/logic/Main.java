@@ -26,7 +26,7 @@ public class Main {
 //        }
 
         //Generar datos
-        for (long i = 1; i < (long)Math.pow(10, 8); i++) {
+        for (long i = 1; i < (long)Math.pow(10, 8)+1; i++) {
             generarDatos(i);
         }
         
