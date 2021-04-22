@@ -23,12 +23,10 @@ public class Main {
 //        } catch (SQLException e) {
 //            System.out.println(e.getMessage());
 //        }
-
-        //Generar datos
-        for (long i = 1; i < (long)Math.pow(10, 8)+1; i++) {
-            generarDatos(i);
+        //Generar datos y almacernalo en la BD
+        for (long i = 1; i <= Math.pow(10,8)+1; i++) {
+            generarDatoAnimal(i);
         }
-        
 
         //Desconectar BD
         ConexionBd.desconectarBd();
@@ -74,7 +72,7 @@ public class Main {
 
     }
 
-    private static void generarDatos(long id) {
+    private static Animal generarDatoAnimal(long id) {
         Random random = new Random();
 
         //Proceso para generar 100000000 datos
@@ -98,14 +96,14 @@ public class Main {
         // Fecha de salida del animal
         LocalDate fechaSalida = (random.nextInt(2) == 1) && adoptable
                 ? LocalDate.of(año + random.nextInt(2 - 1) + 1,
-                        mes < 8  ? random.nextInt(2 - 1) + 1 : mes, 
+                        mes < 8 ? random.nextInt(2 - 1) + 1 : mes,
                         dia < 20 ? random.nextInt(2 - 1) + 1 : dia) : null;
         String estadoIngreso = new String[]{"Muy mal", "Mal", "Bueno", "Muy Bueno"}[random.nextInt(4)];
 
-        //Crear objeto Animal con la informacion obtenida por animal
-        Animal item = new Animal(idAnimal, nombre, animal, genero,
+        //Crear objeto Animal con la informacion creada por animal
+        return new Animal(idAnimal, nombre, animal, genero,
                 fechaIngreso, fechaSalida, adoptable, estadoIngreso);
-        //System.out.println("item = " + item);
+
     }
 
 }
