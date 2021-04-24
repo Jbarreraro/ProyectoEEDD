@@ -3,46 +3,84 @@ import data.Animal;
 import logic.Nodo;
 
 import javax.sound.midi.SysexMessage;
+import javax.swing.*;
 
-public class ListaEnlazada {
+public class ListaEnlazada<T> {
+
     private Nodo inicio;
     private Nodo fin;
 
-    public ListaEnlazada(){
+    public ListaEnlazada() {
         inicio = null;
         fin = null;
     }
-    public boolean estaVacia(){
-        if(inicio == null){
-            return true;
-        }else{
-            return false;
-        }
+
+    public boolean estaVacio() {
+        return inicio == null;
     }
-    public void agregar(Animal animal){
+
+    public void pushBack(T elemento) {
         Nodo actual;
-        if(estaVacia()){
-            actual = new Nodo(animal,null);
+        if (estaVacio()) {
+            actual = new Nodo(elemento);
             inicio = actual;
             fin = actual;
-        }else{
-            actual = new Nodo(animal,null);
+        } else {
+            actual = new Nodo(elemento);
             fin.setSiguiente(actual);
             fin = actual;
         }
     }
-    public void mostar(){
-        if(estaVacia()){
+
+    public void imprimir() {
+        if (estaVacio()) {
             System.out.println("La Lista esta vacia");
-        }else{
+        } else {
             Nodo temporal;
             temporal = inicio;
-            while (temporal != null){
-                System.out.println(temporal.getDato());
+            while (temporal != null) {
+                System.out.print(temporal.getDato() + " ");
                 temporal = temporal.getSiguiente();
             }
         }
 
+    }
+
+    public boolean search(T elemento) {
+        Nodo temporal;
+        temporal = inicio;
+        while (temporal != null) {
+            if (temporal.getDato().equals(elemento)) {
+                return true;
+            }
+            temporal = temporal.getSiguiente();
+        }
+        return false;
+    }
+
+    public boolean remove(T elemento) {
+
+        if (estaVacio()) {
+            return false;
+        }
+
+        Nodo prev = null, temporal = inicio;
+
+        while (temporal != null){
+            if (temporal.getDato().equals(elemento)){
+                if (temporal == inicio ){
+                    inicio = inicio.getSiguiente();
+                    return true;
+                }
+                prev.setSiguiente(temporal.getSiguiente());
+                return true;
+            }else{
+                prev = temporal;
+                temporal = temporal.getSiguiente();
+            }
+        }
+
+        return false;
     }
 
 }
