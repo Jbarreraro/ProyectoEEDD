@@ -2,12 +2,11 @@ package logic;
 import data.Animal;
 
 
-public class Nodo{
+public class Nodo<T>{
     private Nodo siguiente;
-    private Animal dato;
+    private T dato;
 
-    public Nodo(Animal dato, Nodo siguiente){
-        this.siguiente = siguiente;
+    public Nodo(T dato){
         this.dato = dato;
 
     }
@@ -20,11 +19,11 @@ public class Nodo{
         this.siguiente = siguiente;
     }
 
-    public Animal getDato() {
+    public T getDato() {
         return dato;
     }
 
-    public void setDato(Animal dato) {
+    public void setDato(T dato) {
         this.dato = dato;
     }
 
