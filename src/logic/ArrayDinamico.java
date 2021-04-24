@@ -59,24 +59,36 @@ public class ArrayDinamico<T> {
     }
 
     //Eliminar un elemento del arreglo dinamico dado un indice
-    public void remove(int indice) {
+    public boolean remove(int indice) {
         if (indice < 0 || indice >= capacidad) {
             System.out.println("Ha introducido un indice incorrecto");
+            return false;
         } else {
             for (int i = indice; i <= numeroElementos - 2; i++) {
                 array[i] = array[i + 1];
             }
             //Como se eliminó un elemento debemos restar el numeroElementos
             numeroElementos--;
+            return true;
         }
+    }
+
+    //Metodo para buscar un elemento en la lista
+    public boolean search(T elemento) {
+
+        for (int i = 0; i < numeroElementos; i++) {
+            if (array[i].equals(elemento)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     //Metodo para iprimir la lista
     public void imprimir() {
         for (int i = 0; i < numeroElementos; i++) {
-            System.out.print(array[i] + " ");
+            System.out.println(array[i]);
         }
-        System.out.println();
     }
 
 }

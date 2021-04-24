@@ -15,6 +15,10 @@ public class Animal {
     private String estadoIngreso;
 
     //Constructor
+    public Animal(long idAnimal) {
+        this(idAnimal, null, null, null, null, null, false, null);
+    }
+
     public Animal(long idAnimal, String nombre, String animal, String genero,
             LocalDate fechaIngreso, LocalDate fechaSalida,
             boolean adoptable, String estadoIngreso) {
@@ -85,6 +89,31 @@ public class Animal {
                 + ", EsAdoptable=" + adoptable
                 + ", fechaSalida=" + fechaSalida
                 + ", estadoIngreso=" + estadoIngreso;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + (int) (this.idAnimal ^ (this.idAnimal >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Animal other = (Animal) obj;
+        if (this.idAnimal != other.idAnimal) {
+            return false;
+        }
+        return true;
     }
 
 }

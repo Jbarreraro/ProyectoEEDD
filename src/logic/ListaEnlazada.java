@@ -1,9 +1,9 @@
 package logic;
-import data.Animal;
-import logic.Nodo;
+
 
 import javax.sound.midi.SysexMessage;
 import javax.swing.*;
+
 
 public class ListaEnlazada<T> {
 
