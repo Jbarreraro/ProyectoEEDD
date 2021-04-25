@@ -42,17 +42,17 @@ public class PruebaListaEnlazada {
                     int dia1 = Integer.parseInt(fechaSalida[0]);
                     salida = LocalDate.of(año1,mes1,dia1);
                     id1 = Integer.parseInt(id);
-                    Lista1.agregar(new Animal(id1,nombre,animal,genero,entrada,salida, esAdoptable, estado));
+                    Lista1.pushBack(new Animal(id1,nombre,animal,genero,entrada,salida, esAdoptable, estado));
                     break;
                 }
                 case 2:{
-                    Lista1.mostar();
+                    Lista1.imprimir();
                     break;
                 }
                 case 3:{
                     String id = JOptionPane.showInputDialog(null,"Ingrese el id del animal");
                     int idBuscar = Integer.parseInt(id);
-                    Lista1.buscar(idBuscar);
+                    Lista1.pushBack(idBuscar);
                 }
             }
         }while(op != 4);
