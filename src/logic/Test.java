@@ -1,26 +1,19 @@
 package logic;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 public class Test {
 
     public static void main(String[] args) {
-
-        ListaEnlazada<Integer> l = new ListaEnlazada<>();
-
-        for (int i = 0; i < 9; i++) {
-            l.pushBack(i);
-        }
-        l.imprimir();
-        l.remove(1);
-        System.out.println("");
-        l.imprimir();
-        l.remove(2);
-        System.out.println("");
-        l.imprimir();
-        l.remove(7);
-        System.out.println("");
-        l.imprimir();
-        l.remove(3);
-        System.out.println("");
-        l.imprimir();
+        
+        int año,mes,dia;
+        año = 2001;
+        mes = 7;
+        dia = 27;
+        LocalDate i = LocalDate.of(año, mes, dia);
+        
+        
+        
     }
 }
