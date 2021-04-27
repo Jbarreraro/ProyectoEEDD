@@ -1,8 +1,9 @@
 package data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Animal {
+public class Animal implements Serializable{
 
     //Atributos de cada animal
     private final long idAnimal;
