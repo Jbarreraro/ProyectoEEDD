@@ -1,27 +1,25 @@
 package logic;
 
 
-import javax.sound.midi.SysexMessage;
-import javax.swing.*;
-
-
 public class ListaEnlazada<T> {
 
     private Nodo inicio;
     private Nodo fin;
+    private int numeroElementos;
 
     public ListaEnlazada() {
         inicio = null;
         fin = null;
     }
 
-    public boolean estaVacio() {
+    public boolean isEmpty() {
         return inicio == null;
     }
-
+    
+   
     public void pushBack(T elemento) {
         Nodo actual;
-        if (estaVacio()) {
+        if (isEmpty()) {
             actual = new Nodo(elemento);
             inicio = actual;
             fin = actual;
@@ -30,10 +28,26 @@ public class ListaEnlazada<T> {
             fin.setSiguiente(actual);
             fin = actual;
         }
+        numeroElementos++;
     }
+    
+        public Object get(int indice) {
 
+        Nodo temporal;
+        temporal = inicio;
+        if (indice == 0) {
+            return temporal.getDato();
+        } else {
+            for (int j = 0; j < indice; j++) {
+                temporal = temporal.getSiguiente();
+            }
+        }
+        return temporal.getDato();
+
+    }
+    
     public void imprimir() {
-        if (estaVacio()) {
+        if (isEmpty()) {
             System.out.println("La Lista esta vacia");
         } else {
             Nodo temporal;
@@ -60,7 +74,7 @@ public class ListaEnlazada<T> {
 
     public boolean remove(T elemento) {
 
-        if (estaVacio()) {
+        if (isEmpty()) {
             return false;
         }
 
@@ -70,9 +84,11 @@ public class ListaEnlazada<T> {
             if (temporal.getDato().equals(elemento)){
                 if (temporal == inicio ){
                     inicio = inicio.getSiguiente();
+                    numeroElementos--;
                     return true;
                 }
                 prev.setSiguiente(temporal.getSiguiente());
+                numeroElementos--;
                 return true;
             }else{
                 prev = temporal;
@@ -81,6 +97,10 @@ public class ListaEnlazada<T> {
         }
 
         return false;
+    }
+    
+    public int getNumeroElementos(){
+        return this.numeroElementos;
     }
 
 }

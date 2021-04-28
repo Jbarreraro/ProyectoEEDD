@@ -6,11 +6,11 @@ import java.time.LocalDate;
 public class Animal implements Serializable{
 
     //Atributos de cada animal
-    private final long idAnimal;
-    private final String nombre;
-    private final String animal;
-    private final String genero;
-    private final LocalDate fechaIngreso;
+    private long idAnimal;
+    private String nombre;
+    private String animal;
+    private String genero;
+    private LocalDate fechaIngreso;
     private boolean adoptable;
     private LocalDate fechaSalida;
     private String estadoIngreso;
@@ -68,6 +68,31 @@ public class Animal implements Serializable{
     }
 
     //Mutadores 
+
+    public void setIdAnimal(long idAnimal) {
+        this.idAnimal = idAnimal;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setAnimal(String animal) {
+        this.animal = animal;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public void setFechaIngreso(LocalDate fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public void setAdoptable(boolean adoptable) {
+        this.adoptable = adoptable;
+    }
+
     public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
@@ -75,10 +100,7 @@ public class Animal implements Serializable{
     public void setEstadoIngreso(String estadoIngreso) {
         this.estadoIngreso = estadoIngreso;
     }
-
-    public void setAdoptable(boolean adoptable) {
-        this.adoptable = adoptable;
-    }
+    
 
     @Override
     public String toString() {

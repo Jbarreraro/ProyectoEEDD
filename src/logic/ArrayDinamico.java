@@ -1,8 +1,6 @@
 package logic;
 
-import java.io.Serializable;
-
-public class ArrayDinamico<T> implements Serializable{
+public class ArrayDinamico<T> {
 
     private int numeroElementos, capacidad;
     private T array[];
@@ -16,6 +14,10 @@ public class ArrayDinamico<T> implements Serializable{
     public ArrayDinamico() {
         //Por defecto la capacidad es de 16 elementos
         this(16);
+    }
+
+    public boolean isEmpty() {
+        return this.numeroElementos == 0;
     }
 
     //Metodo para acceder a un elemento del arreglo dinamico dado un indice
@@ -96,5 +98,5 @@ public class ArrayDinamico<T> implements Serializable{
     public int getNumeroElementos() {
         return numeroElementos;
     }
-    
+
 }
