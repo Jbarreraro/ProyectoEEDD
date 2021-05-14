@@ -371,7 +371,6 @@ public class FormularioLinkedList extends javax.swing.JFrame {
                                         LocalDate fechaIngreso = LocalDate.of(año, mes, dia);
                                         boolean adoptable = Integer.parseInt(adoptableText) == 1;
                                         fechaArr = fechaSalidaText.split("-");
-                                        fechaArr = fechaIngresoText.split("-");
                                         año = Integer.parseInt(fechaArr[0]);
                                         mes = Integer.parseInt(fechaArr[1]);
                                         dia = Integer.parseInt(fechaArr[2]);

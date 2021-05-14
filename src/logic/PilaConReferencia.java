@@ -27,14 +27,14 @@ public class PilaConReferencia<T> implements Pila<T>{
     
     //Metodo para comprobar si la pila esta vacia
     @Override
-    public boolean estaVacio() {
+    public boolean isEmpty() {
         return cabeza == null;
     }
 
    
     //Metodo para apilar un elemento a la pila
     @Override
-    public void apilar(T elemento){
+    public void push(T elemento){
         Nodo<T> nuevoNodo = new Nodo<T>(elemento);
         nuevoNodo.siguiente = this.cabeza;
         cabeza = nuevoNodo;
@@ -42,9 +42,9 @@ public class PilaConReferencia<T> implements Pila<T>{
     
     //Metodo para desapilar un elemento de la pila
     @Override
-    public T desapilar(){
+    public T pop(){
         T elemento = null;
-        if ( !estaVacio() ){
+        if ( !isEmpty() ){
             elemento = cabeza.dato;
             cabeza = cabeza.siguiente;
         }else{

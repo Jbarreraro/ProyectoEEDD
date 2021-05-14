@@ -114,6 +114,11 @@ public class FormularioArray extends javax.swing.JFrame {
                 BagregarMouseClicked(evt);
             }
         });
+        Bagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BagregarActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -371,7 +376,6 @@ public class FormularioArray extends javax.swing.JFrame {
                                         LocalDate fechaIngreso = LocalDate.of(año, mes, dia);
                                         boolean adoptable = Integer.parseInt(adoptableText) == 1;
                                         fechaArr = fechaSalidaText.split("-");
-                                        fechaArr = fechaIngresoText.split("-");
                                         año = Integer.parseInt(fechaArr[0]);
                                         mes = Integer.parseInt(fechaArr[1]);
                                         dia = Integer.parseInt(fechaArr[2]);
@@ -615,6 +619,10 @@ public class FormularioArray extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Crear();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BagregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BagregarActionPerformed
 
     /**
      * @param args the command line arguments

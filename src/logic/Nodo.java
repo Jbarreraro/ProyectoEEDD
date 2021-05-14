@@ -1,12 +1,12 @@
 package logic;
-import data.Animal;
 
 
-public class Nodo<T>{
+public class Nodo<T> {
+
     private Nodo siguiente;
     private T dato;
 
-    public Nodo(T dato){
+    public Nodo(T dato) {
         this.dato = dato;
 
     }
@@ -26,7 +26,5 @@ public class Nodo<T>{
     public void setDato(T dato) {
         this.dato = dato;
     }
-
-
 
 }

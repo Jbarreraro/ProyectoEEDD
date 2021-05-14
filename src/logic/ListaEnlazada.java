@@ -1,10 +1,9 @@
 package logic;
 
-
 public class ListaEnlazada<T> {
 
-    private Nodo inicio;
-    private Nodo fin;
+    private Nodo<T> inicio;
+    private Nodo<T> fin;
     private int numeroElementos;
 
     public ListaEnlazada() {
@@ -15,28 +14,39 @@ public class ListaEnlazada<T> {
     public boolean isEmpty() {
         return inicio == null;
     }
-    
-   
+
     public void pushBack(T elemento) {
-        Nodo actual;
+        Nodo newNodo;
         if (isEmpty()) {
-            actual = new Nodo(elemento);
-            inicio = actual;
-            fin = actual;
+            newNodo = new Nodo(elemento);
+            inicio = newNodo;
+            fin = newNodo;
         } else {
-            actual = new Nodo(elemento);
-            fin.setSiguiente(actual);
-            fin = actual;
+            newNodo = new Nodo(elemento);
+            fin.setSiguiente(newNodo);
+            fin = newNodo;
         }
         numeroElementos++;
     }
-    
-        public Object get(int indice) {
 
-        Nodo temporal;
+    public void pushFront(T elemento) {
+        Nodo<T> newNodo = new Nodo<>(elemento);
+        newNodo.setSiguiente(inicio);
+        inicio = newNodo;
+        if (fin == null) {
+            fin = inicio;
+        }
+        numeroElementos++;
+    }
+
+    public T get(int indice) {
+        if (isEmpty() || indice < 0) {
+            return null;
+        }
+        Nodo<T> temporal;
         temporal = inicio;
         if (indice == 0) {
-            return temporal.getDato();
+            return inicio.getDato();
         } else {
             for (int j = 0; j < indice; j++) {
                 temporal = temporal.getSiguiente();
@@ -45,7 +55,11 @@ public class ListaEnlazada<T> {
         return temporal.getDato();
 
     }
-    
+
+    public T topFront() {
+        return isEmpty() ? null : inicio.getDato();
+    }
+
     public void imprimir() {
         if (isEmpty()) {
             System.out.println("La Lista esta vacia");
@@ -56,6 +70,7 @@ public class ListaEnlazada<T> {
                 System.out.print(temporal.getDato() + " ");
                 temporal = temporal.getSiguiente();
             }
+            System.out.println("");
         }
 
     }
@@ -75,14 +90,15 @@ public class ListaEnlazada<T> {
     public boolean remove(T elemento) {
 
         if (isEmpty()) {
+            System.out.println("No hay elementos en la lista");
             return false;
         }
 
-        Nodo prev = null, temporal = inicio;
+        Nodo<T> prev = null, temporal = inicio;
 
-        while (temporal != null){
-            if (temporal.getDato().equals(elemento)){
-                if (temporal == inicio ){
+        while (temporal != null) {
+            if (temporal.getDato().equals(elemento)) {
+                if (temporal == inicio) {
                     inicio = inicio.getSiguiente();
                     numeroElementos--;
                     return true;
@@ -90,7 +106,7 @@ public class ListaEnlazada<T> {
                 prev.setSiguiente(temporal.getSiguiente());
                 numeroElementos--;
                 return true;
-            }else{
+            } else {
                 prev = temporal;
                 temporal = temporal.getSiguiente();
             }
@@ -98,8 +114,21 @@ public class ListaEnlazada<T> {
 
         return false;
     }
-    
-    public int getNumeroElementos(){
+
+    public T popFront() {
+        T r = null;
+        if (!isEmpty()) {
+            r = inicio.getDato();
+            inicio = inicio.getSiguiente();
+            if (inicio == null) {
+                fin = null;
+            }
+            numeroElementos--;
+        }
+        return r;
+    }
+
+    public int getNumeroElementos() {
         return this.numeroElementos;
     }
 
