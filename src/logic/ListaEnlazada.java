@@ -50,9 +50,11 @@ public class ListaEnlazada<T> {
         } else {
             for (int j = 0; j < indice; j++) {
                 temporal = temporal.getSiguiente();
+                if (temporal == null)
+                    break;
             }
         }
-        return temporal.getDato();
+        return temporal == null ? null: temporal.getDato();
 
     }
 
