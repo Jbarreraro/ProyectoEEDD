@@ -20,7 +20,7 @@ public class ArrayDinamico<T> {
         return this.numeroElementos == 0;
     }
 
-    //Metodo para acceder a un elemento del arreglo dinamico dado un indice
+    //Metodo para acceder a un elemento del arreglo dinamico dado un indice especifico
     //retorna null si el indice es incorrecto
     public T get(int indice) {
         if (indice < 0 || indice >= capacidad) {
@@ -46,7 +46,7 @@ public class ArrayDinamico<T> {
     public void pushBack(T elemento) {
         if (numeroElementos == capacidad) {
             //Debemos duplicar el tamaño de nuestro arreglo
-            //Creamos un nuevo arreglo con la doble capacidad
+            //Creamos un nuevo arreglo con el doble de capacidad
             T newArray[] = (T[]) new Object[2 * capacidad];
             //Copiar los elementos al nuevo array
             for (int i = 0; i < capacidad; i++) {
@@ -88,7 +88,7 @@ public class ArrayDinamico<T> {
         return false;
     }
 
-    //Metodo para iprimir la lista
+    //Metodo para imprimir la lista
     public void imprimir() {
         for (int i = 0; i < numeroElementos; i++) {
             System.out.println(array[i]);
