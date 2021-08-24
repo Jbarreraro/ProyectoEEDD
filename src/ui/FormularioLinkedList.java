@@ -485,7 +485,7 @@ public class FormularioLinkedList extends javax.swing.JFrame {
                     Animal L3 = (Animal) LAnimales.get(i);
                     if (/*!Lcontacto.isEmpty() &&*/IDeliminar == L3.getId()) {
                         JOptionPane.showMessageDialog(null, "La siguiente informacion fue eliminada " + "\n" + "Identificación: " + L3.getId() + "Nombre: " + L3.getNombre() + "\n " + "Tipo animal: " + L3.getAnimal() + "\n " + "Genero: " + L3.getGenero() + "\n " + "Fecha de ingreso: " + L3.getFechaIngreso() + "\n " + "Estado ingreso: " + L3.getEstadoIngreso() + "\n " + "Adoptabilidad: " + L3.isAdoptable());
-                        LAnimales.remove(i);
+                        LAnimales.remove(new Animal(IDeliminar));
                         eliminar = true;
                         Crear();
                         Tbuscar.setText("");
