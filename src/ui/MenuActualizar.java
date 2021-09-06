@@ -191,7 +191,7 @@ public class MenuActualizar extends JFrame {
             LocalDate fechaSalida = LocalDate.of(year, month, day);
             String estadoIngreso = (String) jcEstado.getSelectedItem();
             boolean adoptable = (String) jcAdoptable.getSelectedItem() == "SI";
-            Main.addAnimalToHashMap(nombre, new Animal(nombre, animal, genero,
+            Main.addAnimal(nombre, new Animal(nombre, animal, genero,
                     fechaIngreso, fechaSalida, adoptable, estadoIngreso));
             JOptionPane.showMessageDialog(null, "Se ha actualizado la hoja de vida de " + nombre);
             this.dispose();
@@ -234,7 +234,7 @@ public class MenuActualizar extends JFrame {
                 // Deshablilitar el componente JTextField de nombre para no agregar un nuevo animal
                 jtNombre.setEnabled(false);
 
-                // Habilitar el boton de actualizar para proceder con la autalizacion
+                // Habilitar el boton de actualizar para proceder con la acttalizacion
                 btnActualizar.setEnabled(true);
 
             } else {

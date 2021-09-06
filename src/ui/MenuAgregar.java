@@ -4,7 +4,6 @@ import data.Animal;
 import java.awt.Color;
 import java.awt.Font;
 import java.time.LocalDate;
-import java.time.Month;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -184,7 +183,7 @@ public class MenuAgregar extends JFrame {
                 LocalDate fechaSalida = LocalDate.of(year, month, day);
                 String estadoIngreso = (String) jcEstado.getSelectedItem();
                 boolean adoptable = (String) jcAdoptable.getSelectedItem() == "SI";
-                Main.addAnimalToHashMap(nombre, new Animal(nombre, animal, genero,
+                Main.addAnimal(nombre, new Animal(nombre, animal, genero,
                         fechaIngreso, fechaSalida, adoptable, estadoIngreso));
                 JOptionPane.showMessageDialog(null, "Se ha añadido la nueva hoja de vida");
                 this.dispose();

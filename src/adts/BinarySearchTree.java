@@ -4,368 +4,368 @@ import java.util.Comparator;
 
 public class BinarySearchTree<T extends Comparable<T>> {
 
-	protected Nodo<T> root;
-	// Un comparator es usado para personalizar el criterio de ordenamiento
-	protected Comparator<T> comparator;
-	
-	//Si se llama el constructor vacio, se utiliza el orden
-	//natural del tipo especificiado en la instancia
-	
-	public BinarySearchTree() {
-		this.root = null;
-		this.comparator = new Comparator<T>() {
+    protected Nodo<T> root;
+    // Un comparator es usado para personalizar el criterio de ordenamiento
+    protected Comparator<T> comparator;
+    
+    private ArrayDinamico<T> elementosOrdenados = new ArrayDinamico<T>();
 
-			@Override
-			public int compare(T o1, T o2) {
-				return o1.compareTo(o2);
-			}
-			
-		};
-	}
-	
-	
-	public BinarySearchTree(Comparator<T> comparator) {
-		this.root = null;
-		this.comparator = comparator;
-	}
+    //Si se llama el constructor vacio, se utiliza el orden
+    //natural del tipo especificiado en la instancia
+    public BinarySearchTree() {
+        this.root = null;
+        this.comparator = new Comparator<T>() {
 
-	protected class Nodo<T> {
+            @Override
+            public int compare(T o1, T o2) {
+                return o1.compareTo(o2);
+            }
 
-		protected Nodo<T> parent, left, right;
-		protected T key;
-		protected int height;
-		
-		@Override
-		public String toString() {
-			return key.toString();
-		}
+        };
+    }
 
-	}
+    public BinarySearchTree(Comparator<T> comparator) {
+        this.root = null;
+        this.comparator = comparator;
+    }
 
-	protected boolean isLeafNode(Nodo<T> nodo) {
-		if (nodo.left == null && nodo.right == null)
-			return true;
-		return false;
-	}
-	
-	
-	// Retorna el valor maximo almacenado en el arbol
-	public T getMax() {
-		return getMax(root);
-	}
-	
-	// Retorna el valor minimo almacenado en el arbol
-	public T getMin() {
-		return getMin(root);
-	}
-	
-	private T getMin(Nodo<T> nodo) {
-		if (nodo.left != null)
-			return getMin(nodo.left);
-		return nodo.key;
-	}
-	
-	private T getMax(Nodo<T> nodo) {
-		if (nodo.right != null)
-			return getMax(nodo.right);
-		return nodo.key;
-	}
-	
+    protected class Nodo<T> {
 
-	// Este metodo retorna la referencia del nodo que contiene el valor del key.
-	// si el key no esta en el arbol, retorna la referencia de un nodo
-	// que actuaria como padre si se a�adiera un nodo con el valor del key
+        protected Nodo<T> parent, left, right;
+        protected T key;
+        protected int height;
 
-	public Nodo<T> find(T key) {
-		return find(key, root);
-	}
-	
-	protected Nodo<T> findToDelete(T key, Nodo<T> nodo) {
-		
-		
-		int resultComparator = comparator.compare(nodo.key, key);
-		
-		if (resultComparator == 0) {
-			return nodo;
-		}
-		
-		if (resultComparator > 0) {
-			if (nodo.left != null)
-				return findToDelete(key, nodo.left);
-			return nodo;
-		}
+        @Override
+        public String toString() {
+            return key.toString();
+        }
 
-		// Si el nodo actual posee un key con un valor menor o igual al key pasado como
-		// parametro
-		// Se va buscando un nodo hacia la derecha,
-		// caso: comparator.compare(nodo.key,key) <= 0
+    }
 
-		else {
-			if (nodo.right != null)
-				return findToDelete(key, nodo.right);
-			return nodo;
-		}
-		
-	}
+    protected boolean isLeafNode(Nodo<T> nodo) {
+        if (nodo.left == null && nodo.right == null) {
+            return true;
+        }
+        return false;
+    }
 
-	private Nodo<T> find(T key, Nodo<T> nodo) {
+    // Retorna el valor maximo almacenado en el arbol
+    public T getMax() {
+        return getMax(root);
+    }
 
-		int resultComparator = comparator.compare(nodo.key, key);
+    // Retorna el valor minimo almacenado en el arbol
+    public T getMin() {
+        return getMin(root);
+    }
 
-		// Caso donde se encuetra un nodo que contiene el valor del key
-		// se va buscando un nodo hacia la derecha (posibles valores duplicados)
-		if (resultComparator == 0) {
-			if (nodo.right != null) 
-				return find(key, nodo.right);
-			return nodo;
-		}
-		 
-		// Si el nodo actual posee un key con un valor mayor al key pasado como
-		// parametro
-		// Se va buscando un nodo hacia la izquierda
+    private T getMin(Nodo<T> nodo) {
+        if (nodo.left != null) {
+            return getMin(nodo.left);
+        }
+        return nodo.key;
+    }
 
-		if (resultComparator > 0) {
-			if (nodo.left != null)
-				return find(key, nodo.left);
-			return nodo;
-		}
+    private T getMax(Nodo<T> nodo) {
+        if (nodo.right != null) {
+            return getMax(nodo.right);
+        }
+        return nodo.key;
+    }
 
-		// Si el nodo actual posee un key con un valor menor o igual al key pasado como
-		// parametro
-		// Se va buscando un nodo hacia la derecha,
-		// caso: comparator.compare(nodo.key,key) <= 0
+    // Este metodo retorna la referencia del nodo que contiene el valor del key.
+    // si el key no esta en el arbol, retorna la referencia de un nodo
+    // que actuaria como padre si se a�adiera un nodo con el valor del key
+    public Nodo<T> find(T key) {
+        return find(key, root);
+    }
 
-		else {
-			if (nodo.right != null)
-				return find(key, nodo.right);
-			return nodo;
-		}
+    protected Nodo<T> findToDelete(T key, Nodo<T> nodo) {
 
-	}
+        int resultComparator = comparator.compare(nodo.key, key);
 
-	// Retorna el nodo que contiene el key con el siguiente valor
-	// mas grande en el arbol con respecto al nodo pasado como
-	// parametro
+        if (nodo.key.equals(key)) {
+            return nodo;
+        }
 
-	private Nodo<T> next(Nodo<T> nodo) {
+        if (resultComparator > 0) {
+            if (nodo.left != null) {
+                return findToDelete(key, nodo.left);
+            }
+            return nodo;
+        } // Si el nodo actual posee un key con un valor menor o igual al key pasado como
+        // parametro
+        // Se va buscando un nodo hacia la derecha,
+        // caso: comparator.compare(nodo.key,key) <= 0
+        else {
+            if (nodo.right != null) {
+                return findToDelete(key, nodo.right);
+            }
+            return nodo;
+        }
 
-		if (nodo.right != null)
-			return leftDescendant(nodo.right);
+    }
 
-		return rightDescendant(nodo);
-	}
+    private Nodo<T> find(T key, Nodo<T> nodo) {
 
-	// Encontrar el nodo con el key menor en el subarbol derecho
-	private Nodo<T> leftDescendant(Nodo<T> nodo) {
-		if (nodo.left == null)
-			return nodo;
-		return leftDescendant(nodo.left);
-	}
+        int resultComparator = comparator.compare(nodo.key, key);
 
-	// Encuentra el ancestro del nodo para el cual
-	// el haga parte de su subarbol izquierdo
-	private Nodo<T> rightDescendant(Nodo<T> nodo) {
+        // Caso donde se encuetra un nodo que contiene el valor del key
+        // se va buscando un nodo hacia la derecha (posibles valores duplicados)
+        if (resultComparator == 0) {
+            if (nodo.right != null) {
+                return find(key, nodo.right);
+            }
+            return nodo;
+        }
 
-		// si el nodo evaluado es el que contiene el key mayor en el arbol entonces no
-		// habra un nodo ancestro
-		// entonces puede llegar hasta el nodo root y su ancentro es null
-		if (nodo == null || nodo == root.right)
-			return null;
+        // Si el nodo actual posee un key con un valor mayor al key pasado como
+        // parametro
+        // Se va buscando un nodo hacia la izquierda
+        if (resultComparator > 0) {
+            if (nodo.left != null) {
+                return find(key, nodo.left);
+            }
+            return nodo;
+        } // Si el nodo actual posee un key con un valor menor o igual al key pasado como
+        // parametro
+        // Se va buscando un nodo hacia la derecha,
+        // caso: comparator.compare(nodo.key,key) <= 0
+        else {
+            if (nodo.right != null) {
+                return find(key, nodo.right);
+            }
+            return nodo;
+        }
 
-		if (comparator.compare(nodo.key, nodo.parent.key) < 0)
-			return nodo.parent;
+    }
 
-		return rightDescendant(nodo.parent);
-	}
+    // Retorna el nodo que contiene el key con el siguiente valor
+    // mas grande en el arbol con respecto al nodo pasado como
+    // parametro
+    private Nodo<T> next(Nodo<T> nodo) {
 
-	// Este metodo regresa los nodos que contienen keys con valores
-	// entre [x - y] incluyendolos
-	public ArrayDinamico<Nodo<T>> rangeSearch(T x, T y) {
-		ArrayDinamico<Nodo<T>> list = new ArrayDinamico<Nodo<T>>(16);
-		Nodo<T> NodoinTree = find(x, root);
+        if (nodo.right != null) {
+            return leftDescendant(nodo.right);
+        }
 
-		// Mientras el valor del nodo sea menor o igual al valor de y
-		while (NodoinTree != null && comparator.compare(NodoinTree.key, y) <= 0) {
+        return rightDescendant(nodo);
+    }
 
-			// Si el valor del nodo es mayor o igual al valor de x
-			if (comparator.compare(NodoinTree.key, x) >= 0)
-				list.pushBack(NodoinTree);
-			NodoinTree = next(NodoinTree);
+    // Encontrar el nodo con el key menor en el subarbol derecho
+    private Nodo<T> leftDescendant(Nodo<T> nodo) {
+        if (nodo.left == null) {
+            return nodo;
+        }
+        return leftDescendant(nodo.left);
+    }
 
-		}
-		return list;
-	}
+    // Encuentra el ancestro del nodo para el cual
+    // el haga parte de su subarbol izquierdo
+    private Nodo<T> rightDescendant(Nodo<T> nodo) {
 
-	// Metodo para insertar el nodo en el arbol
-	public void insert(T key) {
+        // si el nodo evaluado es el que contiene el key mayor en el arbol entonces no
+        // habra un nodo ancestro
+        // entonces puede llegar hasta el nodo root y su ancentro es null
+        if (nodo == null || nodo == root) {
+            return null;
+        }
 
-		Nodo<T> newNodo = new Nodo<T>();
-		newNodo.key = key;
+        if (comparator.compare(nodo.key, nodo.parent.key) < 0) {
+            return nodo.parent;
+        }
 
-		if (root == null) {
-			root = newNodo;
-		} else {
+        return rightDescendant(nodo.parent);
+    }
 
-			Nodo<T> nodo = find(key, root);
+    // Este metodo regresa los nodos que contienen keys con valores
+    // entre [x - y] incluyendolos
+    public ArrayDinamico<Nodo<T>> rangeSearch(T x, T y) {
+        ArrayDinamico<Nodo<T>> list = new ArrayDinamico<Nodo<T>>(16);
+        Nodo<T> NodoinTree = find(x, root);
 
-			int resultComparator = comparator.compare(nodo.key, key);
-			
-			// El nodo a insertar posee una valor evaluado
-			// igual al del padre, por convencion se inserta a la derecha
-			if (resultComparator == 0) {
-				//nodo.arr = new ArrayDinamico<T>(16);
-				//nodo.arr.pushBack(key);
-				newNodo.parent = nodo;
-				nodo.right = newNodo;
-			}
-			// Insertar como hijo izquierdo el nuevo nodo con el key pasado
-			// como parametro
-			else if (resultComparator > 0) {
-				newNodo.parent = nodo;
-				nodo.left = newNodo;
-				// Insertar como hijo derecho el nuevo nodo con el key pasado
-				// como parametro.
-				// caso resultComparator < 0
-			} else {
-				newNodo.parent = nodo;
-				nodo.right = newNodo;
-			}
-		}
-	}
+        // Mientras el valor del nodo sea menor o igual al valor de y
+        while (NodoinTree != null && comparator.compare(NodoinTree.key, y) <= 0) {
 
-	private boolean isLeftChild(Nodo<T> nodo) {
-		return comparator.compare(nodo.key, nodo.parent.key) < 0;
-	}
+            // Si el valor del nodo es mayor o igual al valor de x
+            if (comparator.compare(NodoinTree.key, x) >= 0) {
+                list.pushBack(NodoinTree);
+            }
+            NodoinTree = next(NodoinTree);
 
-	// Metodo para eliminar un nodo del arbol y mantene la invariante del bst
+        }
+        return list;
+    }
 
-	public boolean delete(T key) {
-		// Verficar que existe un nodo en el arbol con una key igual al key del
-		// parametro
-		Nodo<T> nodoFinded = findToDelete(key, root);
-		if (nodoFinded.key.equals(key)) {
-			delete(nodoFinded);
-			return true;
-		}
-		else
-			return false;
-	}
+    // Metodo para insertar el nodo en el arbol
+    public void insert(T key) {
 
-	// Este metodo elimina el nodo del arbol con el key especificado
-	// Y retorna su referencia
+        Nodo<T> newNodo = new Nodo<T>();
+        newNodo.key = key;
 
-	protected Nodo<T> delete(Nodo<T> nodo) {
+        if (root == null) {
+            root = newNodo;
+        } else {
 
-		// Existen 3 casos al remover el nodo
+            Nodo<T> nodo = find(key, root);
 
-		// caso1: El nodo a remover es una hoja
-		if (nodo.left == null && nodo.right == null) {
+            int resultComparator = comparator.compare(nodo.key, key);
 
-			// Si el nodo es la raiz
-			if (nodo == root) {
-				root = null;
+            // El nodo a insertar posee una valor evaluado
+            // igual al del padre, por convencion se inserta a la derecha
+            if (resultComparator == 0) {
+                //nodo.arr = new ArrayDinamico<T>(16);
+                //nodo.arr.pushBack(key);
+                newNodo.parent = nodo;
+                nodo.right = newNodo;
+            } // Insertar como hijo izquierdo el nuevo nodo con el key pasado
+            // como parametro
+            else if (resultComparator > 0) {
+                newNodo.parent = nodo;
+                nodo.left = newNodo;
+                // Insertar como hijo derecho el nuevo nodo con el key pasado
+                // como parametro.
+                // caso resultComparator < 0
+            } else {
+                newNodo.parent = nodo;
+                nodo.right = newNodo;
+            }
+        }
+    }
 
-			} else {
+    private boolean isLeftChild(Nodo<T> nodo) {
+        return comparator.compare(nodo.key, nodo.parent.key) < 0;
+    }
 
-				// Verificar si es hijo derecho o izquierdo
+    // Metodo para eliminar un nodo del arbol y mantene la invariante del bst
+    public boolean delete(T key) {
+        // Verficar que existe un nodo en el arbol con una key igual al key del
+        // parametro
+        Nodo<T> nodoFinded = findToDelete(key, root);
+        if (nodoFinded.key.equals(key)) {
+            delete(nodoFinded);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-				// Es hijo izquierdo
-				if (isLeftChild(nodo))
-					nodo.parent.left = null;
-				// Es hijo derecho
-				else
-					nodo.parent.right = null;
+    // Este metodo elimina el nodo del arbol con el key especificado
+    // Y retorna su referencia
+    protected Nodo<T> delete(Nodo<T> nodo) {
 
-			}
-		}
-		// caso2: El nodo a remover tiene un unico hijo (Izquierdo o(Exclusiva) Derecho)
+        // Existen 3 casos al remover el nodo
+        // caso1: El nodo a remover es una hoja
+        if (nodo.left == null && nodo.right == null) {
 
-		// tiene al hijo izquierdo unicamente
-		else if (nodo.right == null) {
+            // Si el nodo es la raiz
+            if (nodo == root) {
+                root = null;
 
-			if (nodo == root) {
-				root = root.left;
-				root.parent = null;
-			} else {
-				// Verificar si es hijo derecho o izquierdo
+            } else {
 
-				// Es hijo izquierdo
-				if (isLeftChild(nodo))
-					nodo.parent.left = nodo.left;
-				// Es hijo derecho
-				else
-					nodo.parent.right = nodo.left;
-				
-			//Actualizar padre al hijo izquierdo del nodo a remover
-			nodo.left.parent = nodo.parent;
-			}
-		// tiene al hijo derecho unicamente
-		} else if (nodo.left == null) {
+                // Verificar si es hijo derecho o izquierdo
+                // Es hijo izquierdo
+                if (isLeftChild(nodo)) {
+                    nodo.parent.left = null;
+                } // Es hijo derecho
+                else {
+                    nodo.parent.right = null;
+                }
 
-			if (nodo == root) {
-				root = root.right;
-				root.parent = null;
-			}
-			// Verificar si es hijo derecho o izquierdo
+            }
+        } // caso2: El nodo a remover tiene un unico hijo (Izquierdo o(Exclusiva) Derecho)
+        // tiene al hijo izquierdo unicamente
+        else if (nodo.right == null) {
 
-			// Es hijo izquierdo
-			if (isLeftChild(nodo))
-				nodo.parent.left = nodo.right;
-			// Es hijo derecho
-			else
-				nodo.parent.right = nodo.right;
-			
-			//Actualizar padre al hijo derecho del nodo a remover
-			nodo.right.parent = nodo.parent;
-		// caso3: El nodo a remover tiene ambos hijos
-		// se reemplaza el key del nodo que se quiere remover
-		// por el key del nodo con menor valor en su subarbol derecho
-		// Luego, este se elimina
-		} else {
+            if (nodo == root) {
+                root = root.left;
+                root.parent = null;
+            } else {
+                // Verificar si es hijo derecho o izquierdo
 
-			Nodo<T> smallestNodeRigthSubTree = leftDescendant(nodo.right);
-			T aux = smallestNodeRigthSubTree.key;
-			delete(smallestNodeRigthSubTree);
-			nodo.key = aux;
-			return smallestNodeRigthSubTree;
-		}
+                // Es hijo izquierdo
+                if (isLeftChild(nodo)) {
+                    nodo.parent.left = nodo.left;
+                } // Es hijo derecho
+                else {
+                    nodo.parent.right = nodo.left;
+                }
 
-		return nodo;
+                //Actualizar padre al hijo izquierdo del nodo a remover
+                nodo.left.parent = nodo.parent;
+            }
+            // tiene al hijo derecho unicamente
+        } else if (nodo.left == null) {
 
-	}
+            if (nodo == root) {
+                root = root.right;
+                root.parent = null;
+            }
+            // Verificar si es hijo derecho o izquierdo
 
-	// Metodo publico
-	public void inOrderTraversal() {
-		inOrderTraversal(root);
-		System.out.println();
-	}
+            // Es hijo izquierdo
+            if (isLeftChild(nodo)) {
+                nodo.parent.left = nodo.right;
+            } // Es hijo derecho
+            else {
+                nodo.parent.right = nodo.right;
+            }
 
-	// Metodo privado con nodos
-	private void inOrderTraversal(Nodo<T> nodo) {
-		if (nodo != null) {
-			inOrderTraversal(nodo.left);
-			System.out.print(nodo.key + " ");
-			inOrderTraversal(nodo.right);
-		}
-	}
+            //Actualizar padre al hijo derecho del nodo a remover
+            nodo.right.parent = nodo.parent;
+            // caso3: El nodo a remover tiene ambos hijos
+            // se reemplaza el key del nodo que se quiere remover
+            // por el key del nodo con menor valor en su subarbol derecho
+            // Luego, este se elimina
+        } else {
 
-	public void levelTransversal() {
-		levelTransversal(root);
-		System.out.println();
-	}
+            Nodo<T> smallestNodeRigthSubTree = leftDescendant(nodo.right);
+            T aux = smallestNodeRigthSubTree.key;
+            delete(smallestNodeRigthSubTree);
+            nodo.key = aux;
+            return smallestNodeRigthSubTree;
+        }
 
-	private void levelTransversal(Nodo<T> root) {
-		if (root == null)
-			return;
-		Queue<Nodo<T>> queue = new Queue<Nodo<T>>();
-		queue.enqueue(root);
-		while (!queue.isEmpty()) {
-			Nodo<T> nodo = queue.dequeue();
-			System.out.print(nodo.key + " ");
-			if (nodo.left != null)
-				queue.enqueue(nodo.left);
-			if (nodo.right != null)
-				queue.enqueue(nodo.right);
-		}
-	}
+        return nodo;
+
+    }
+
+    // Metodo publico
+    public ArrayDinamico<T> inOrderTraversal() {
+        return inOrderTraversal(root);
+    }
+
+    // Metodo privado con nodos
+    private ArrayDinamico<T> inOrderTraversal(Nodo<T> nodo) {
+        if (nodo != null) {
+            inOrderTraversal(nodo.left);
+            elementosOrdenados.pushBack(nodo.key);
+            inOrderTraversal(nodo.right);
+        }
+        return elementosOrdenados;
+    }
+
+    public void levelTransversal() {
+        levelTransversal(root);
+        System.out.println();
+    }
+
+    private void levelTransversal(Nodo<T> root) {
+        if (root == null) {
+            return;
+        }
+        Queue<Nodo<T>> queue = new Queue<Nodo<T>>();
+        queue.enqueue(root);
+        while (!queue.isEmpty()) {
+            Nodo<T> nodo = queue.dequeue();
+            System.out.print(nodo.key + " ");
+            if (nodo.left != null) {
+                queue.enqueue(nodo.left);
+            }
+            if (nodo.right != null) {
+                queue.enqueue(nodo.right);
+            }
+        }
+    }
 }

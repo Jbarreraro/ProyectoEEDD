@@ -13,9 +13,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import logic.Main;
 
-public class MenuHojasDeVida extends JFrame {
+public class MenuBusquedaPorNombre extends JFrame {
 
-    public MenuHojasDeVida() {
+    public MenuBusquedaPorNombre() {
 
         // Propiedades del JFrame
         this.setTitle("Menu Hojas De Vida");
@@ -169,23 +169,23 @@ public class MenuHojasDeVida extends JFrame {
         btnBuscar.setForeground(new Color(0x92c5fc)); //Set text color
         btnBuscar.setBackground(new Color(0x15588c));
         btnBuscar.setBounds(350, 120, 150, 30);
-        // Acciones cuando se oprime el boton de regresar
+        // Acciones cuando se oprime el boton de buscar
         btnBuscar.addActionListener(
                 e
                 -> {
             String nombre = jtNombre.getText();
             Animal animal = Main.getAnimal(nombre);
-            if (animal != null){
+            if (animal != null) {
                 jtAnimal.setText(animal.getAnimal());
                 jtGenero.setText(animal.getGenero());
                 jtFechaIngreso.setText(String.valueOf(animal.getFechaIngreso()));
                 jtFechaSalida.setText(String.valueOf(animal.getFechaSalida()));
                 jtEstado.setText(animal.getEstadoIngreso());
                 jtAdoptable.setText(animal.isAdoptable() ? "SI" : "NO");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No existe un animal con el nombre especificado");
             }
-            
+
         });
 
         JButton btnRegresar = new JButton("Regresar");

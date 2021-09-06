@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Animal implements Serializable {
+public class Animal implements Serializable, Comparable<Animal> {
 
     //Atributos de cada animal
     private String nombre;
@@ -140,4 +140,9 @@ public class Animal implements Serializable {
         return true;
     }
 
+    @Override
+    public int compareTo(Animal o) {
+        return this.fechaIngreso.compareTo(o.fechaIngreso);
+    }
+    
 }
