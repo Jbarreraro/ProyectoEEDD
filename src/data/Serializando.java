@@ -43,8 +43,6 @@ public class Serializando {
     private static Animal generarDatoAnimal(long id) {
         Random random = new Random();
 
-        //Proceso para generar 100000000 datos
-        long idAnimal = id;
         //String random de 7 caracteres
         String nombre = random.ints(97, 122 + 1)
                 .limit(5)
@@ -70,7 +68,7 @@ public class Serializando {
         String estadoIngreso = new String[]{"Muy mal", "Mal", "Bueno", "Muy Bueno"}[random.nextInt(4)];
         estadoIngreso = estadoIngreso.toUpperCase();
         //Crear objeto Animal con la informacion creada por animal
-        return new Animal(idAnimal, nombre, animal, genero,
+        return new Animal(nombre, animal, genero,
                 fechaIngreso, fechaSalida, adoptable, estadoIngreso);
 
     }

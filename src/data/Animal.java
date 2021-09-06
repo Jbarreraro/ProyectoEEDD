@@ -2,11 +2,11 @@ package data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class Animal implements Serializable{
+public class Animal implements Serializable {
 
     //Atributos de cada animal
-    private long idAnimal;
     private String nombre;
     private String animal;
     private String genero;
@@ -16,14 +16,14 @@ public class Animal implements Serializable{
     private String estadoIngreso;
 
     //Constructor
-    public Animal(long idAnimal) {
-        this(idAnimal, null, null, null, null, null, false, null);
+    public Animal(String nombreAnimal) {
+        this(nombreAnimal, null, null, null, null, false, null);
     }
 
-    public Animal(long idAnimal, String nombre, String animal, String genero,
+    public Animal(String nombre, String animal, String genero,
             LocalDate fechaIngreso, LocalDate fechaSalida,
             boolean adoptable, String estadoIngreso) {
-        this.idAnimal = idAnimal;
+
         this.nombre = nombre;
         this.animal = animal;
         this.genero = genero;
@@ -35,10 +35,6 @@ public class Animal implements Serializable{
     }
 
     //Accesores
-    public long getId() {
-        return this.idAnimal;
-    }
-
     public String getNombre() {
         return this.nombre;
     }
@@ -68,11 +64,6 @@ public class Animal implements Serializable{
     }
 
     //Mutadores 
-
-    public void setIdAnimal(long idAnimal) {
-        this.idAnimal = idAnimal;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -100,25 +91,16 @@ public class Animal implements Serializable{
     public void setEstadoIngreso(String estadoIngreso) {
         this.estadoIngreso = estadoIngreso;
     }
-    
 
     @Override
     public String toString() {
-        return "id=" + idAnimal
-                + ", nombre=" + nombre
+        return "nombre=" + nombre
                 + ", animal=" + animal
                 + ", genero=" + genero
                 + ", fechaIngreso=" + fechaIngreso
                 + ", EsAdoptable=" + adoptable
                 + ", fechaSalida=" + fechaSalida
                 + ", estadoIngreso=" + estadoIngreso;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + (int) (this.idAnimal ^ (this.idAnimal >>> 32));
-        return hash;
     }
 
     @Override
@@ -133,7 +115,26 @@ public class Animal implements Serializable{
             return false;
         }
         final Animal other = (Animal) obj;
-        if (this.idAnimal != other.idAnimal) {
+
+        if (Objects.equals(this.nombre, other.nombre)) {
+            return true;
+        }
+        if (this.adoptable != other.adoptable) {
+            return false;
+        }
+        if (!Objects.equals(this.animal, other.animal)) {
+            return false;
+        }
+        if (!Objects.equals(this.genero, other.genero)) {
+            return false;
+        }
+        if (!Objects.equals(this.estadoIngreso, other.estadoIngreso)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaIngreso, other.fechaIngreso)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaSalida, other.fechaSalida)) {
             return false;
         }
         return true;
