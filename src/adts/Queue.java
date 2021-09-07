@@ -1,6 +1,8 @@
 package adts;
 
-public class Queue<T> extends ListaEnlazada<T>{
+import java.io.Serializable;
+
+public class Queue<T> extends ListaEnlazada<T> implements Serializable{
 
 	public T dequeue() {
 		return super.popFront();

@@ -1,8 +1,9 @@
 package adts;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class HashFunction {
+public class HashFunction implements Serializable{
 
 	// Numero primo usado para la funcion hash polinomial
 	private int p;

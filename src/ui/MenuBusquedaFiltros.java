@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,11 +15,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 import logic.Main;
 
 public class MenuBusquedaFiltros extends JFrame {
 
-    static JTable jtable;
+  
 
     public static void main(String[] args) {
         new MenuBusquedaFiltros();
@@ -59,7 +64,16 @@ public class MenuBusquedaFiltros extends JFrame {
         bluePanel.setBounds(20, 190, 1150, 500);
         bluePanel.setLayout(new BorderLayout());
         bluePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        bluePanel.setVisible(false);
+        bluePanel.setVisible(true);
+
+        //Create JTable
+        DefaultTableModel model = new MyModel();
+        JTable jtable = new JTable(model);
+        jtable.setFont(new Font("MV Boli", Font.PLAIN, 14));
+        
+
+        //Create JScrollPane an add to panel with the JTable
+        bluePanel.add(new JScrollPane(jtable), BorderLayout.CENTER);
 
         //Create JComboBoxes
         String[] options = {"Visualizar HV´s, por fecha de ingreso ascendentemente",
@@ -68,7 +82,7 @@ public class MenuBusquedaFiltros extends JFrame {
         jcFiltro.setFont(new Font("MV Boli", Font.PLAIN, 20));
         jcFiltro.setForeground(new Color(0x15588c));
         jcFiltro.setBackground(new Color(0xe7fcff));
-        jcFiltro.setBounds(20, 120, 530, 30);
+        jcFiltro.setBounds(20, 120, 630, 30);
 
         //Create JButtons
         JButton btnBuscar = new JButton("Buscar");
@@ -80,30 +94,33 @@ public class MenuBusquedaFiltros extends JFrame {
         btnBuscar.addActionListener(
                 e -> {
 
+                    // Limpiamos las filas mostradas previamente
+                    model.setRowCount(0);
+                    
+                            
                     //Obtener data de la funcion main dependiendo de la seleccion del comboBox
                     String[][] datos;
                     // Fecha Ingreso ascendente
                     if (jcFiltro.getSelectedIndex() == 0) {
                         datos = Main.getDataOrderedByFechaIngreso();
-                        // Fecha Salida ascendente
+                    // Fecha Salida ascendente
                     } else {
                         datos = Main.getDataOrderedByFechaSalida();
                     }
-
+                    
+  
+                    
                     if (datos.length > 0) {
-                        String[] columnas = {"NOMBRE", "ANIMAL", "GENERO", "FECHA INGRESO", "ADOPTABLE", "FECHA SALIDA", "ESTADO INGRESO"};
 
-                        //Create JTable
-                        jtable = new JTable(datos, columnas);
-                        jtable.setFont(new Font("MV Boli", Font.PLAIN, 14));
-                        jtable.setEnabled(false);
+                        // SE RECIBEN DATOS 
+                        for (String[] fila : datos) {
+                            model.addRow(fila);
+                        }
 
-                        //Create JScrollPane an add to panel with the JTable
-                        bluePanel.add(new JScrollPane(jtable), BorderLayout.CENTER);
-                        bluePanel.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "No hay hojas de vida agregadas");
                     }
+                    
 
                 });
 
@@ -134,5 +151,6 @@ public class MenuBusquedaFiltros extends JFrame {
         this.setVisible(true);
 
     }
+    
 
 }

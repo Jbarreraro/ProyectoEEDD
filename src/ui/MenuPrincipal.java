@@ -3,15 +3,22 @@ package ui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import logic.Main;
 
 public class MenuPrincipal extends JFrame {
+
+    public static void main(String[] args) {
+        new MenuPrincipal();
+    }
 
     public MenuPrincipal() {
 
@@ -87,6 +94,25 @@ public class MenuPrincipal extends JFrame {
             new MenuEliminar();
         });
 
+        JButton btnGuardar = new JButton(new ImageIcon("res/save.png"));
+        btnGuardar.setFocusable(false);
+        btnGuardar.setFont(new Font("MV Boli", Font.BOLD, 28));
+        btnGuardar.setForeground(new Color(0xffffff)); //Set text color
+        btnGuardar.setBackground(new Color(0x15588c));
+        btnGuardar.setBounds(460, 300, 100, 100);
+        // Accion al oprimir el boton de eliminar
+        btnGuardar.addActionListener(
+                e
+                -> {
+            try {
+                Main.saveInfo();
+                JOptionPane.showMessageDialog(null, "Se ha guardado la informacion");
+            }catch(IOException ex){
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error guardando la informacion");
+            }
+
+        });
+
         //Add buttons to the JPanel Blue
         bluePanel.add(btnHistoriasClinicas);
         bluePanel.add(btnAgregar);
@@ -106,6 +132,7 @@ public class MenuPrincipal extends JFrame {
         //Adds components to the JFrame
         this.add(bluePanel);
         this.add(jlTitle);
+        this.add(btnGuardar);
 
         // Put the Frame in the center of the screen a make this visible
         this.setLocationRelativeTo(null);

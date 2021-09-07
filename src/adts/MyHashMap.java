@@ -1,6 +1,8 @@
 package adts;
 
-public class MyHashMap<K, V> {
+import java.io.Serializable;
+
+public class MyHashMap<K, V> implements Serializable {
 
     // Arreglo de listas encadenadas (chaining)
     private ListaEnlazada<Entry<K, V>>[] hashMap;
@@ -21,7 +23,7 @@ public class MyHashMap<K, V> {
         hashFunction = new HashFunction(p);
     }
 
-    private class Entry<K, V> {
+    private class Entry<K, V> implements Serializable{
 
         // Variables de instancia
         private K key;

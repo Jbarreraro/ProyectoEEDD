@@ -1,6 +1,8 @@
 package adts;
 
-public class ArrayDinamico<T> {
+import java.io.Serializable;
+
+public class ArrayDinamico<T> implements Serializable{
 
     private int numeroElementos, capacidad;
     private T array[];

@@ -1,5 +1,8 @@
 package adts;
-public class ListaEnlazada<T> {
+
+import java.io.Serializable;
+
+public class ListaEnlazada<T> implements Serializable{
 
     private Nodo<T> inicio;
     private Nodo<T> fin;

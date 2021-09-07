@@ -1,7 +1,9 @@
 package adts;
 
+import java.io.Serializable;
 
-public class Nodo<T> {
+
+public class Nodo<T> implements Serializable{
 
     private Nodo siguiente;
     private T dato;

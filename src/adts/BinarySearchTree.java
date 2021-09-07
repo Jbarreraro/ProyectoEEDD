@@ -1,13 +1,14 @@
 package adts;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class BinarySearchTree<T extends Comparable<T>> {
+public class BinarySearchTree<T extends Comparable<T>> implements Serializable{
 
     protected Nodo<T> root;
     // Un comparator es usado para personalizar el criterio de ordenamiento
     protected Comparator<T> comparator;
-    
+
     private ArrayDinamico<T> elementosOrdenados = new ArrayDinamico<T>();
 
     //Si se llama el constructor vacio, se utiliza el orden
@@ -15,7 +16,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public BinarySearchTree() {
         this.root = null;
         this.comparator = new Comparator<T>() {
-
+            
             @Override
             public int compare(T o1, T o2) {
                 return o1.compareTo(o2);
@@ -29,7 +30,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         this.comparator = comparator;
     }
 
-    protected class Nodo<T> {
+    protected class Nodo<T> implements Serializable{
 
         protected Nodo<T> parent, left, right;
         protected T key;
@@ -301,15 +302,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
             if (nodo == root) {
                 root = root.right;
                 root.parent = null;
-            }
-            // Verificar si es hijo derecho o izquierdo
+            } else {
+                // Verificar si es hijo derecho o izquierdo
 
-            // Es hijo izquierdo
-            if (isLeftChild(nodo)) {
-                nodo.parent.left = nodo.right;
-            } // Es hijo derecho
-            else {
-                nodo.parent.right = nodo.right;
+                // Es hijo izquierdo
+                if (isLeftChild(nodo)) {
+                    nodo.parent.left = nodo.right;
+                } // Es hijo derecho
+                else {
+                    nodo.parent.right = nodo.right;
+                }
             }
 
             //Actualizar padre al hijo derecho del nodo a remover
@@ -333,17 +335,18 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     // Metodo publico
     public ArrayDinamico<T> inOrderTraversal() {
-        return inOrderTraversal(root);
+    	ArrayDinamico<T> arr = new ArrayDinamico<T>();
+    	return inOrderTraversal(root, arr);
     }
 
     // Metodo privado con nodos
-    private ArrayDinamico<T> inOrderTraversal(Nodo<T> nodo) {
+    private ArrayDinamico<T> inOrderTraversal(Nodo<T> nodo, ArrayDinamico<T> l) {
         if (nodo != null) {
-            inOrderTraversal(nodo.left);
-            elementosOrdenados.pushBack(nodo.key);
-            inOrderTraversal(nodo.right);
+            inOrderTraversal(nodo.left, l);
+            l.pushBack(nodo.key);
+            inOrderTraversal(nodo.right, l);
         }
-        return elementosOrdenados;
+        return l;
     }
 
     public void levelTransversal() {

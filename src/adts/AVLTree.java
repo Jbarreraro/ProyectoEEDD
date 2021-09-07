@@ -1,11 +1,12 @@
 package adts;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 
 import java.lang.Math;
 
-public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
+public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> implements Serializable{
 
 	public AVLTree() {
 		super();
